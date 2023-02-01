@@ -1,7 +1,11 @@
 # python_django_user
 
-README de teste
+How to
 
-pip install -r requirements.txt
+-Build dockerfile
 
-python3 manage.py runserver
+docker build . -t python_django_user
+
+-Run Image
+
+docker run -it -d --rm -p 8080:8000 python_django_user
