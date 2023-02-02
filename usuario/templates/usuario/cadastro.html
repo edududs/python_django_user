@@ -1,8 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'form_base.html' %}
 {% load static %}
  
   {% block 'titulo' %}Cadastro{% endblock 'titulo' %}
-  {% block 'linkcss' %}<link rel="stylesheet" href="{% static 'usuario/css/form.css' %}"/>{% endblock 'linkcss' %}
 
   {% block 'conteudo' %}
     <div class="page">
@@ -26,6 +25,7 @@
               id="name"
               required
               name="name"
+              value="{{ request.POST.name }}"
               minlength="3"
                />
             </div>
@@ -38,6 +38,7 @@
               type="text" 
               name="username" 
               id="username"
+              value="{{ request.POST.username }}"
               minlength="5"
               required/>
             </div>
@@ -48,6 +49,7 @@
               >
               <input 
               type="email" 
+              value="{{ request.POST.email }}"
               name="email" 
               id="email" 
               required/>
@@ -60,6 +62,7 @@
               type="tel" 
               name="tel" 
               id="tel"
+              value="{{ request.POST.tel }}"
               maxlength="15" 
               required/>
             </div>

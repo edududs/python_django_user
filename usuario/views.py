@@ -72,7 +72,7 @@ def cadastro(request):
     messages.success(request, 'Cadastro efetuado com sucesso!')
     if username == 'admin':
         user = User.objects.create_superuser(username=username, email=email, password=password, first_name=name)
-        return render(request, 'usuario/cadastro.html')
+        return redirect('login')
     user = User.objects.create_user(username=username, email=email, password=password, first_name=name, tel=tel)
     user.save()
 

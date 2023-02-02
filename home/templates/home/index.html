@@ -1,7 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'form_base.html' %}
 {% block 'titulo' %}Mais Energia |{% endblock 'titulo' %}
 
 {% block 'conteudo' %} 
-<h1>Página inicial</h1>
+<div class="page">
+    <header>
+      <h1>Página inicial</h1>
+      <p><a href="{% url 'login' %}">Login</a></p>
+    </header>
+</div>
+
 
 {% endblock 'conteudo' %}
