@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages, auth
-from django.contrib.auth.models import User
+from .models import User
 from django.contrib.auth.decorators import login_required
 from django.core.validators import validate_email
 
@@ -33,13 +33,14 @@ def cadastro(request):
     if request.method != 'POST':
         return render(request, 'usuario/cadastro.html')
 
-    name = request.POST.get('name')
+    first_name = request.POST.get('firstname')
+    last_name = request.POST.get('lastname')
     username = request.POST.get('username')
     email = request.POST.get('email')
     tel = request.POST.get('tel')
     password = request.POST.get('password')
     password2 = request.POST.get('password2')
-    if not name or not email or not username or not password or not password2:
+    if not email or not username or not password or not password2 or not first_name or not last_name:
         messages.error(request, 'Nenhum campo pode estar vazio')
         return render(request, 'usuario/cadastro.html')
     try:
@@ -69,11 +70,12 @@ def cadastro(request):
         messages.error(request, 'Este email já está cadastrado')
         return render(request, 'usuario/cadastro.html')
 
-    messages.success(request, 'Cadastro efetuado com sucesso!')
     if username == 'admin':
-        user = User.objects.create_superuser(username=username, email=email, password=password, first_name=name)
+        user = User.objects.create_superuser(username=username, email=email, password=password, first_name=first_name, last_name=last_name, tel=tel)
+        messages.success(request, 'Cadastro de admin efetuado com sucesso!')
         return redirect('login')
-    user = User.objects.create_user(username=username, email=email, password=password, first_name=name, tel=tel)
+    messages.success(request, 'Cadastro efetuado com sucesso!')
+    user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name, tel=tel)
     user.save()
 
     return redirect('login')

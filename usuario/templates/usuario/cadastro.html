@@ -17,14 +17,25 @@
             {% include 'partials/_messages.html' %}
             <legend>Informações do Usuário</legend>
             <div class="input-wrapper">
-              <label for="name"
-                >Nome completo <span>(obrigatório)</span></label
+              <label for="firstname"
+                >Nome <span>(obrigatório)</span></label
               >
               <input 
               type="text"
-              id="name"
-              required
-              name="name"
+              id="firstname"
+              name="firstname"
+              value="{{ request.POST.name }}"
+              minlength="3"
+               />
+            </div>
+            <div class="input-wrapper">
+              <label for="lastname"
+                >Sobrenome <span>(obrigatório)</span></label
+              >
+              <input 
+              type="text"
+              id="lastname"
+              name="lastname"
               value="{{ request.POST.name }}"
               minlength="3"
                />
@@ -68,7 +79,7 @@
             </div>
             <div class="input-wrapper">
               <label for="password"
-                >Senha <span>(deve conter no mínimo 6 caracteres)</span></label
+                >Senha <span>(deve conter no mínimo 5 caracteres)</span></label
               >
               <input 
               type="password" 

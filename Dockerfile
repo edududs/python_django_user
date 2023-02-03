@@ -1,20 +1,23 @@
-# Imagem Python oficial como base
+# Usando uma imagem de python como base
 FROM python:3.9-alpine
 
-# Diretório de trabalho
+# Definindo o diretório de trabalho como /app
 WORKDIR /app
 
-# Copiando o arquivo requirements.txt para o diretório de trabalho
+# Instalando as dependências do mysql
+RUN apk --update add build-base && apk add --update mariadb-dev && apk add --update mysql-dev
+
+# Copiando os arquivos necessários para a imagem do Docker
 COPY requirements.txt .
 
-# Instalando as dependências do Python
+# Instalando as dependências do projeto
 RUN pip install -r requirements.txt
 
-# Copiando todo o conteúdo do diretório atual para o diretório de trabalho
+# Copiando o resto dos arquivos da aplicação para a imagem do Docker
 COPY . .
 
-# Copiando arquivo zoado
-COPY ./models.py /usr/local/lib/python3.9/site-packages/django/contrib/auth/models.py
+# Executando as configurações necessárias do banco de dados
+RUN python manage.py makemigrations && python manage.py migrate
 
-# Executando o comando para iniciar o servidor Django
+# Executando o servidor do Django
 CMD python manage.py runserver 0.0.0.0:8000
